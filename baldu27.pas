@@ -15,6 +15,8 @@ en el vector.
 program baldu;
 const
 	dimF = 20;
+	min=300;
+	max=1550;
 	
 type 
 	indice=1..20;
@@ -27,9 +29,8 @@ var
 	ini, fin: indice;
 	pos:indice;
 	DimL:integer;
-	min,max:integer;
 
-procedure CargarVector (var v:vector; var dimL:integer; min:integer; max:integer);
+procedure CargarVector (var v:vector; var dimL:integer);
 var
 	n:rangorandom;
 begin
@@ -54,11 +55,27 @@ begin
 	end;
 end;
 
+procedure Ordenarvector (var v:vector; DimL:integer);
+var
+	i, j, actual:integer;
+begin
+		for i:=2 to DimL do
+		begin
+				actual:=v[i];
+				j:=i-1;
+				while (j>0) and (v[j]>actual) do
+				begin
+					v[j+1]:=v[j];
+					j:=j-1;
+				end;
+				v[j+1]:=actual;
+		end;
+end;
+
 BEGIN
 	randomize;
-	min:=300;
-	max:=1550;
 	dimL:=0;
-	cargarvector(v,diml,min,max);
+	cargarvector(v,diml);
+	ordenarvector(v,DimL);
 	mostrarvector(v);
 END.
