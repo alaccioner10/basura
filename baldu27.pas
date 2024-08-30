@@ -30,7 +30,7 @@ var
 	pos:indice;
 	DimL:integer;
 
-procedure CargarVector (var v:vector; var dimL:integer);
+procedure CargarVector (var v:vector; var dimL:integer; var fin:indice);
 var
 	n:rangorandom;
 begin
@@ -59,23 +59,54 @@ procedure Ordenarvector (var v:vector; DimL:integer);
 var
 	i, j, actual:integer;
 begin
-		for i:=2 to DimL do
+	for i:=2 to DimL do
+	begin
+		actual:=v[i];
+		j:=i-1;
+		while (j>0) and (v[j]>actual) do
 		begin
-				actual:=v[i];
-				j:=i-1;
-				while (j>0) and (v[j]>actual) do
-				begin
-					v[j+1]:=v[j];
-					j:=j-1;
-				end;
-				v[j+1]:=actual;
+			v[j+1]:=v[j];
+			j:=j-1;
 		end;
+		v[j+1]:=actual;
+	end;
 end;
+
+Procedure busquedaDicotomica (v: vector; ini,fin: indice; dato:integer; var pos: indice);
+var
+	med:indice;
+begin
+	med:=(ini+fin) div 2;
+	while (fin>=ini) and (v[medio] <> dato) do
+	begin
+		if (dato>v[medio]) then
+		begin
+			ini:=medio+1;
+		end
+		else
+		begin
+			fin:=medio-1;
+		end;
+		med:=(ini+fin) div 2;
+	end;
+	if (fin>=ini)then
+	begin
+		pos:=medio;
+	end
+	else
+	begin
+		post:=-1;
+	end;
+end;
+
 
 BEGIN
 	randomize;
 	dimL:=0;
 	cargarvector(v,diml);
 	ordenarvector(v,DimL);
+	ini:=1;
+	fin:=20;
 	mostrarvector(v);
+	
 END.
