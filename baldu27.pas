@@ -19,7 +19,7 @@ const
 	max=1550;
 	
 type 
-	indice=1..20;
+	indice=-1..20;
 	vector=array [1..DimF] of integer;
 	rangorandom=300..1550;
 	
@@ -28,9 +28,9 @@ var
 	v:vector;
 	ini, fin: indice;
 	pos:indice;
-	DimL:integer;
+	DimL,dato:integer;
 
-procedure CargarVector (var v:vector; var dimL:integer; var fin:indice);
+procedure CargarVector (var v:vector; var dimL:integer);
 var
 	n:rangorandom;
 begin
@@ -39,7 +39,7 @@ begin
 	begin	
 		dimL:=dimL+1;
 		v[dimL]:=n;
-		cargarvector(v,dimL,min,max);
+		cargarvector(v,dimL);
 	end;
 
 end;
@@ -74,9 +74,9 @@ end;
 
 Procedure busquedaDicotomica (v: vector; ini,fin: indice; dato:integer; var pos: indice);
 var
-	med:indice;
+	medio:indice;
 begin
-	med:=(ini+fin) div 2;
+	medio:=(ini+fin) div 2;
 	while (fin>=ini) and (v[medio] <> dato) do
 	begin
 		if (dato>v[medio]) then
@@ -87,7 +87,7 @@ begin
 		begin
 			fin:=medio-1;
 		end;
-		med:=(ini+fin) div 2;
+		medio:=(ini+fin) div 2;
 	end;
 	if (fin>=ini)then
 	begin
@@ -95,7 +95,7 @@ begin
 	end
 	else
 	begin
-		post:=-1;
+		pos:=-1;
 	end;
 end;
 
@@ -103,10 +103,20 @@ end;
 BEGIN
 	randomize;
 	dimL:=0;
-	cargarvector(v,diml);
+	CargarVector(v,diml);
 	ordenarvector(v,DimL);
 	ini:=1;
 	fin:=20;
 	mostrarvector(v);
-	
+	writeln('ingrese el numero que quiere buscar');
+	readln(dato);
+	busquedaDicotomica(v,ini,fin,dato,pos);
+	if (pos=-1) then
+	begin
+		writeln('el numero no esta en el vector');
+	end
+	else
+	begin
+		writeln('el numero esta en la posicion: ', pos);
+	end;
 END.
