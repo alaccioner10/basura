@@ -29,13 +29,25 @@ type
 		HI:arbol;
 		HD:arbol;
 	end;
+	
+	notaynum=record
+		numalumnos:nalumnos;
+		notaprom:real;
+	end;
+	
+	arbol2=^nodo2;
+	
+	nodo2=record
+		dato2:notaynum;
+		HI:arbol2;
+		HD:arbol2;
+	end;
 
 //type//
 
 var 
 	a:arbol;
-
-//tengo que ponerme a armar la estructura que arme el arbol y la lista//
+	a2:arbol2;
 
 //TERCERO//
 procedure agregarlista (var L:lista);
@@ -47,6 +59,7 @@ begin
 		new(nuevo);
 		readln(nuevo^.datoL.nota);
 		readln(nuevo^.datoL.codigo);
+		l:=nuevo;
 	end
 	else
 	begin
@@ -75,6 +88,7 @@ begin
 		a^.dato:=auxa;
 		a^.HI:=nil;
 		A^.HD:=nil;
+		agregarlista(a^.dato.listamn);
 	end
 	else
 	begin
@@ -109,9 +123,26 @@ begin
 
 end;
 
+//Parte 2//
+
+procedure armararbol2 (var a2:arbol2; a:arbol);
+var
+	aux:arbol;
+begin
+	if (a=nil) then
+	begin
+		writeln('la lista esta vacia');
+	end
+	else
+	begin
+		leerarbol(a,aux);
+		agregararbol2(a2, aux);
+		//parte sin terminar//
+	end;
+end;
+
 BEGIN
 	a:=nil;
 	armararbol(a);
-	
+	a2:=nil;
 END.
-
